@@ -14,3 +14,10 @@ var connection = mysql.createConnection({
   password: "root",
   database: "bamazon"
 });
+
+connection.connect(function (err) {
+    if (err) throw err;
+    console.log("connected as id " + connection.threadId);
+    connection.end();
+   
+  });

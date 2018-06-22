@@ -7,7 +7,7 @@ item_id, product_name, department_name, price, stock_quantity
 6, vodka, alcohol, 20, 80
 7, whiskey, alcohol, 25, 130
 8, beer, alcohol, 12, 500
-9, wine, alcohol 30, 60
+9, wine, alcohol, 30, 60
 10, beans, food, 1, 350
 11, eggs, food, 4, 125
 12, sausage, food, 8, 90
