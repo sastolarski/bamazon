@@ -1,0 +1,13 @@
+item_id, product_name, department_name, price, stock_quantity
+1, soap, toiletries, 3, 200
+2, razor, toiletries, 8, 150
+3, shampoo, toiletries, 5, 70
+4, scissors, office supplies, 2, 100
+5, stapler, office supplies, 4, 100
+6, vodka, alcohol, 20, 80
+7, whiskey, alcohol, 25, 130
+8, beer, alcohol, 12, 500
+9, wine, alcohol 30, 60
+10, beans, food, 1, 350
+11, eggs, food, 4, 125
+12, sausage, food, 8, 90
