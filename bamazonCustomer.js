@@ -46,7 +46,7 @@ function start() {
             }
         });
 }
-//second function shows inventory if user confirms the first function
+//second function shows inventory and prompts user for item and quantity
 //==================================================================================
 
 function showInventory() {
@@ -57,34 +57,33 @@ function showInventory() {
         }
 
         inquirer
-        .prompt([
-            {
-            name: "itemSelect",
-            type: "input",
-            message: "Please input the item ID number of the item you would like to purchase"
+            .prompt([
+                {
+                    name: "itemSelect",
+                    type: "input",
+                    message: "Please input the item ID number of the item you would like to purchase"
 
-            },{
-            name: "itemQuantity",
-            type: "input",
-            message: "Please enter the quanitiy you would like to purchase."
-            }
+                }, {
+                    name: "itemQuantity",
+                    type: "input",
+                    message: "Please enter the quanitiy you would like to purchase."
+                }
 
-    
-        ]).then(function (answer) {
-            var buy = parseFloat(answer.itemSelect) - 1;
-            var num = answer.itemQuantity;
-            console.log(buy);
-            console.log(num);
-            
-            console.log("Your Order of " + num + " " + res[buy].product_name + "(s) is on the way!");
 
-                    
+            ]).then(function (answer) {
+                var buy = parseFloat(answer.itemSelect) - 1;
+                var num = parseFloat(answer.itemQuantity);
 
-        })
+                //parse float to turn the answers into integers and then console log the results out in the CLI
 
-    })
-    
-}
+                console.log("Your Total for " + num + " " + res[buy].product_name + "(s) is $" + (num * res[buy].price) + " and your order will be shipped within 2 days.");
+                console.log("Thank you for your business.")
+
+            });
+
+    });
+
+};
 
 
 
