@@ -16,7 +16,8 @@ var connection = mysql.createConnection({
 });
 
 //On connect to database run first function
-//===================================================================
+//==================================================================================
+
 connection.connect(function (err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId);
@@ -25,7 +26,8 @@ connection.connect(function (err) {
 });
 
 //start function uses inquirier to ask user if they would like to see the inventory
-//===================================================================
+//==================================================================================
+
 function start() {
     inquirer
         .prompt({
@@ -40,23 +42,51 @@ function start() {
                 showInventory();
             }
             else {
-                console.log("nothing")
+                console.log("Maybe next time.")
             }
         });
 }
 //second function shows inventory if user confirms the first function
-//===================================================================
+//==================================================================================
 
 function showInventory() {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         for (var i = 0; i < res.length; i++) {
-            console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].price);
+            console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | $" + res[i].price + " | " + res[i].stock_quanitity + " in stock");
         }
 
+        inquirer
+        .prompt([
+            {
+            name: "itemSelect",
+            type: "input",
+            message: "Please input the item ID number of the item you would like to purchase"
+
+            },{
+            name: "itemQuantity",
+            type: "input",
+            message: "Please enter the quanitiy you would like to purchase."
+            }
+
+    
+        ]).then(function (answer) {
+            var buy = parseFloat(answer.itemSelect) - 1;
+            var num = answer.itemQuantity;
+            console.log(buy);
+            console.log(num);
+            
+            console.log("Your Order of " + num + " " + res[buy].product_name + "(s) is on the way!");
+
+                    
+
+        })
+
     })
-    connection.end();
+    
 }
+
+
 
 
 
