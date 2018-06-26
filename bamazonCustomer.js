@@ -43,6 +43,7 @@ function start() {
             }
             else {
                 console.log("Maybe next time.")
+                connection.end();
             }
         });
 }
@@ -69,16 +70,22 @@ function showInventory() {
                     message: "Please enter the quanitiy you would like to purchase."
                 }
 
-
             ]).then(function (answer) {
                 var buy = parseFloat(answer.itemSelect) - 1;
                 var num = parseFloat(answer.itemQuantity);
-
+                if(num > res[buy].stock_quanitity){
+                    console.log("============================================");
+                    console.log("Sorry we dont have that much in stock right now.  Please try again.");
+                    console.log("============================================");
+                    start();
+                } else {
                 //parse float to turn the answers into integers and then console log the results out in the CLI
-
+                console.log("============================================");
                 console.log("Your Total for " + num + " " + res[buy].product_name + "(s) is $" + (num * res[buy].price) + " and your order will be shipped within 2 days.");
-                console.log("Thank you for your business.")
-
+                console.log("Thank you for your business.");
+                console.log("============================================");
+                start();
+                }
             });
 
     });
