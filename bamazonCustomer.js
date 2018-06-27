@@ -71,20 +71,30 @@ function showInventory() {
                 }
 
             ]).then(function (answer) {
+                //convert responses into integers
                 var buy = parseFloat(answer.itemSelect) - 1;
                 var num = parseFloat(answer.itemQuantity);
-                if(num > res[buy].stock_quanitity){
+
+                //if OOS, let the user know
+                if (num > res[buy].stock_quanitity) {
                     console.log("============================================");
                     console.log("Sorry we dont have that much in stock right now.  Please try again.");
                     console.log("============================================");
                     start();
                 } else {
-                //parse float to turn the answers into integers and then console log the results out in the CLI
-                console.log("============================================");
-                console.log("Your Total for " + num + " " + res[buy].product_name + "(s) is $" + (num * res[buy].price) + " and your order will be shipped within 2 days.");
-                console.log("Thank you for your business.");
-                console.log("============================================");
-                start();
+
+                    //update stock in database
+                    connection.query("UPDATE products SET ? WHERE ?", [
+                        { stock_quanitity: (res[buy].stock_quanitity - num) },
+                        { item_id: answer.itemSelect }
+                    ])
+
+                    //log out the results
+                    console.log("============================================");
+                    console.log("Your Total for " + num + " " + res[buy].product_name + "(s) is $" + (num * res[buy].price) + " and your order will be shipped within 2 days.");
+                    console.log("Thank you for your business.");
+                    console.log("============================================");
+                    start();
                 }
             });
 

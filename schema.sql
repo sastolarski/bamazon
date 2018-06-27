@@ -11,3 +11,5 @@ CREATE TABLE products (
     PRIMARY KEY (item_id)
 );
 
+SELECT * FROM products
+
